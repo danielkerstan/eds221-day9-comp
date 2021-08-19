@@ -1,0 +1,22 @@
+---
+title: "day 9 comp"
+author: "Daniel Kerstan"
+date: "8/19/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+library(tidyverse)
+library(palmerpenguins)
+library(lubridate)
+library(janitor)
+```
+
+### janitor::get_dupes()
+
+```{r}
+
+```
+
