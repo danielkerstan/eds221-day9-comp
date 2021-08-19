@@ -12,11 +12,73 @@ library(tidyverse)
 library(palmerpenguins)
 library(lubridate)
 library(janitor)
+library(reprex)
 ```
 
 ### janitor::get_dupes()
 
 ```{r}
+starwrs_dupes <- get_dupes(starwars)
+
+
+starwars_dupes_names <- starwars %>% 
+  get_dupes(name)
+
+starwars_dupes_other <- starwars %>% 
+  get_dupes(eye_color, hair_color)
+
+starwars_dupes_other
+
+```
+
+
+
+### dplyr::across()
+
+```{r}
+sw_across <- starwars %>% 
+  mutate(across(where(is.character), tolower))
+```
+
+```{r}
+starwars %>% 
+  group_by(homeworld) %>% 
+  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+```
+
+```{r}
+starwars %>% 
+  filter(homeworld == "Naboo")
+```
+
+
+```{r}
+starwars %>% 
+  separate(skin_color, into = c("col_1", "col_2"), sep = ",")
+```
+
+```{r}
+troubleshooting <- penguins %>% 
+  mutate(across(where(is.numeric), as.character)) %>% 
+  mutate(island = fct_relevel(island, c("Dream", "Biscoe", "Torgersen"))) %>% 
+  unite(island_yr, c(island, year), sep = "_") %>% 
+  filter(species %in% c("Adelie", "Chinstrap")) %>% 
+  relocate(island_yr, .after = species) %>% 
+  rename(penguin_species = species)
+```
+
+```{r}
+library(tidyverse)
+
+df <- tribble(
+  ~name, ~height, ~hair_color,
+  "teddy", 2.2, "brown",
+  "khora", 3.1, "white",
+  "Waffle", 1.0, "tan"
+)
+
+df %>% 
+  filter(name == "Waffle")
 
 ```
 
